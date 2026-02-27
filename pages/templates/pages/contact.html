@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+   background: linear-gradient(135deg, #ff8400, #00c6ff);
+    background-size: cover;  
+  }
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center">
+
+        <!-- Contact Form -->
+        <div class="col-md-7">
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+                <h2 class="text-center mb-4">📩 Contact Us</h2>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Name</label>
+                        <input type="text" name="name" class="form-control form-control-lg"
+                               placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input type="email" name="email" class="form-control form-control-lg"
+                               placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Subject</label>
+                        <input type="text" name="subject" class="form-control form-control-lg"
+                               placeholder="Subject">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Message</label>
+                        <textarea name="message" rows="5"
+                                  class="form-control form-control-lg"
+                                  placeholder="Write your message..." required></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg rounded-pill">
+                            Send Message 🚀
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-md-5 mt-4 mt-md-0">
+            <div class="card text-white bg-primary shadow-lg border-0 rounded-4 p-4 h-100">
+                <h3 class="mb-3">📍 Get in Touch</h3>
+                <p>
+                    Have questions or feedback?  
+                    Feel free to contact us anytime.
+                </p>
+
+                <hr>
+
+                <p class="fs-5">📧 <strong>Email:</strong><br> library@email.com</p>
+                <p class="fs-5">📞 <strong>Phone:</strong><br> +970-599-123456</p>
+                <p class="fs-5">🏢 <strong>Address:</strong><br> Gaza – Palestine</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

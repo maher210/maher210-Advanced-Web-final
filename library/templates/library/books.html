@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-image: url('/media/back ground/maktaba.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.9;
+ 
+  }
+</style>
+
+<div class="container mt-4">
+
+    <h2 class="mb-4 text-center">📚 Library Books</h2>
+
+    <form method="get" class="row mb-4">
+        <div class="col-md-5">
+            <input
+                type="text"
+                name="search"
+                value="{{ search|default:'' }}"
+                class="form-control"
+                placeholder="Search by book title"
+            >
+        </div>
+
+        <div class="col-md-4">
+            <select name="category" class="form-select">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}"
+                        {% if category_id == cat.id|stringformat:"s" %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    
+    <div class="row">
+        {% for book in page_obj %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm h-100">
+                <div class="card-body">
+                    <h5>{{ book.title }}</h5>
+                    <p class="text-muted">
+                        {{ book.author.name }}<br>
+                        {{ book.category.name }}
+                    </p>
+
+                    <p>
+                        Available:
+                        <strong>{{ book.available_copies }}</strong>
+                    </p>
+
+                    <a href="/book/{{ book.id }}/" class="btn btn-sm btn-outline-primary">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No books found.</p>
+        {% endfor %}
+    </div>
+
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link"
+                href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}{% if category_id %}&category={{ category_id }}{% endif %}">
+                    Previous
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}{% if category_id %}&category={{ category_id }}{% endif %}">
+                    Next
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

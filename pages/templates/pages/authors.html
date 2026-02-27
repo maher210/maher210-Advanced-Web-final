@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-image: url('/media/back ground/maktaba.jpg') ;
+    background-size: cover;  
+  }
+</style>
+
+<h2 class="mb-4">Authors</h2>
+
+<div class="row">
+    {% for author in authors %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            
+            {% if author.photo %}
+                <img src="{{ author.photo.url }}" class="card-img-top" height="250">
+            {% else %}
+                <div class="bg-secondary text-white text-center p-5">
+                    No Image
+                </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ author.name }}</h5>
+
+                <p class="card-text">
+                    {{ author.bio|truncatewords:25 }}
+                </p>
+
+                <p class="text-muted">
+                    📚 Books in library: {{ author.books_count }}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <p>No authors found.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

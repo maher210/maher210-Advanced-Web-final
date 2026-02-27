@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<style>
+  body {
+   background: linear-gradient(135deg, #ff8400, #00c6ff);
+    background-size: cover;  
+  }
+</style>
+
+<h2>My Borrowed Books</h2>
+
+{% for b in borrows %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5>{{ b.book.title }}</h5>
+        <p>Borrowed: {{ b.borrow_date }}</p>
+        <p>Return: {{ b.expected_return_date }}</p>
+
+        {% if b.is_late %}
+            <p class="text-danger">Late</p>
+        {% else %}
+            <p class="text-success">On Time</p>
+        {% endif %}
+
+        <a href="{% url 'return_book' b.id %}" class="btn btn-warning">
+            Return Book
+        </a>
+    </div>
+</div>
+{% empty %}
+<p>No borrowed books.</p>
+{% endfor %}
+{% endblock %}

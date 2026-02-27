@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-image: url('/media/back ground/maktaba.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.9;
+ 
+  }
+</style>
+
+<div class="container mt-4">
+
+    <div class="mb-4 text-center">
+      <h2 class="fw-bold text-center text-primary position-relative d-inline-block">
+    👋 Welcome to the Electronic Library System {{ user.username }}
+    <span style="display:block; height:3px; background:#0d6efd; margin-top:8px;"></span>
+</h2>
+<p class="text-muted text-center fs-5">
+   
+</p>
+    </div>
+
+  
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5>Total Books/Categories</h5>
+                    <h2>{{ stats.books }}/{{ stats.categories }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5>Authors</h5>
+                    <h2>{{ stats.authors }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5>Students</h5>
+                    <h2>{{ stats.students }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Books -->
+    <h4 class="mb-3" style="color: rgb(1, 144, 205);">Latest Books</h4>
+    <div class="row">
+        {% for book in latest_books %}
+        <div class="col-md-4">
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5>{{ book.title }}</h5>
+                    <p class="text-muted">{{ book.author.name }}</p>
+                    <a href="/book/{{ book.id }}/" class="btn btn-sm btn-primary">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Top Rated -->
+    <h4 class="mt-5 mb-3" style="color: rgb(1, 144, 205);">Top Rated Books</h4>
+    <div class="row">
+        {% for book in top_books %}
+        <div class="col-md-4">
+            <div class="card border-success mb-3 shadow">
+                <div class="card-body">
+                    <h5>{{ book.title }}</h5>
+                    <p>⭐ Rating: {{ book.avg_rating|default:"No ratings" }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+</html>
